@@ -2,7 +2,8 @@ const rescue = require('express-rescue');
 const NextAuth = require('next-auth').default;
 const GoogleProvider = require('next-auth/providers/google').default;
 const SequelizeAdapter = require('@next-auth/sequelize-adapter').default;
-
+const { DataTypes } = require('sequelize');
+const { models } = require('@next-auth/sequelize-adapter');
 const db = require('../../../db');
 
 db.sync();
@@ -16,7 +17,17 @@ const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ],
-  // adapter: SequelizeAdapter(db),
+  adapter: SequelizeAdapter(db, {
+    synchronize: true,
+    models: {
+      Account: db.define('account', {
+        ...models.Account,
+        refresh_token: DataTypes.STRING(512),
+        access_token: DataTypes.STRING(12288),
+        id_token: DataTypes.STRING(12288)
+      })
+    }
+  }),
   secret: process.env.OPTIONS_SECRET
 };
 
