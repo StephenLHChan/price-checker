@@ -1,0 +1,48 @@
+import { useState } from 'react';
+import { Box, IconButton, Link, Menu, MenuItem } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+
+const NavMenu = ({ pages }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <Box>
+      <IconButton
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button'
+        }}
+      >
+        {pages.map(page => (
+          <Link key={page.name} href={page.href}>
+            <MenuItem key={page.name} component={Link}>
+              {page.name}
+            </MenuItem>
+          </Link>
+        ))}
+      </Menu>
+    </Box>
+  );
+};
+
+export default NavMenu;
