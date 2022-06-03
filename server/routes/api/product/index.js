@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 
     const priceRecord = await Price.findOne({
       where: {
-        price: await Price.min('price', {where: {product_id: product.id}})
+        price: await Price.min('price', { where: { product_id: product.id } })
       }
     });
 
@@ -44,7 +44,12 @@ router.get('/', async (req, res, next) => {
     const result = {
       name: product.name,
       barcode: barcode,
-      price: priceRecord.price,
+      price: '$ ' + priceRecord.price,
+      date: priceRecord.createdAt.toLocaleDateString('en-UK', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }),
       merchant: merchant.name
     };
 

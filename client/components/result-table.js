@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 
 const ResultTable = ({ data }) => {
-  const { name, barcode, price, merchant } = data;
+  const { name, barcode, price, date, merchant } = data;
 
   const rows = [
     {
@@ -22,6 +22,10 @@ const ResultTable = ({ data }) => {
     {
       label: 'Price',
       data: price
+    },
+    {
+      label: 'Date',
+      data: date
     },
     {
       label: 'Merchant',
@@ -40,7 +44,7 @@ const ResultTable = ({ data }) => {
               <TableCell sx={{ fontWeight: 'bold' }} component="th" scope="row">
                 {row.label}
               </TableCell>
-              <TableCell align="left" >{row.data}</TableCell>
+              <TableCell align="left">{row.data}</TableCell>
             </TableRow>
           ))}
         </TableBody>
