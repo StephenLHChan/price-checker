@@ -1,10 +1,8 @@
 import {
-  Box,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper
 } from '@mui/material';
@@ -14,36 +12,35 @@ const ResultTable = ({ data }) => {
 
   const rows = [
     {
-      label: 'Name', 
-      data: name 
+      label: 'Name',
+      data: name
     },
     {
-      label: 'Barcode', 
-      data: barcode 
+      label: 'Barcode',
+      data: barcode
     },
     {
-      label: 'Price', 
-      data: price 
+      label: 'Price',
+      data: price
     },
     {
-      label: 'Merchant', 
-      data: merchant 
-    },
-  ]
+      label: 'Merchant',
+      data: merchant
+    }
+  ];
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-
+      <Table sx={{ maxWidth: 'md' }} aria-label="result table">
         <TableBody>
           {rows.map(row => (
             <TableRow
               key={row.label}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell sx={{ fontWeight: 'bold' }} component="th" scope="row">
                 {row.label}
               </TableCell>
-              <TableCell align="right">{row.data}</TableCell>
+              <TableCell align="left" >{row.data}</TableCell>
             </TableRow>
           ))}
         </TableBody>
