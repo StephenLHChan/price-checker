@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const { json, urlencoded } = express;
@@ -14,7 +13,6 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 
 app.use(require('./routes/api/auth'));
-
 app.use('/api', require('./routes/api'));
 
 app.use(function (req, res, next) {
