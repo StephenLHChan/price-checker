@@ -2,21 +2,19 @@ import { useState } from 'react';
 import { FilledInput, FormControl } from '@mui/material';
 
 const Input = ({ searchItem }) => {
-  const [text, setText] = useState('');
+  const [barcode, setBarcode] = useState('');
 
   const handleChange = event => {
-    setText(event.target.value);
+    setBarcode(event.target.value);
   };
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const formElements = form.elements;
-    const reqBody = {
-      barcode: formElements.text.value
+    const reqParams = {
+      barcode: barcode
     };
-    await searchItem(reqBody);
-    setText('');
+    await searchItem(reqParams);
+    setBarcode('');
   };
 
   return (
@@ -24,8 +22,8 @@ const Input = ({ searchItem }) => {
       <FormControl fullWidth={true} hiddenLabel>
         <FilledInput
           disableUnderline
-          placeholder="Enter the barcode"
-          value={text}
+          placeholder="Enter the barcode..."
+          value={barcode}
           name="text"
           onChange={handleChange}
         />
