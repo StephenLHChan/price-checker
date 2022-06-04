@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
 
     if (!barcode) {
       return res.status(400).json({
-        error: 'barcode parameter is required'
+        error: 'Missing parameter (barcode)'
       });
     }
 
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
     });
 
     if (!product) {
-      return res.status(400).json({ error: 'Product Not Found' });
+      return res.status(404).json({ error: 'Not Found (product)' });
     }
 
     const priceRecord = await Price.findOne({
@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
     });
 
     if (!priceRecord) {
-      return res.status(400).json({ error: 'Price record Not Found' });
+      return res.status(400).json({ error: 'Not Found (price record)' });
     }
 
     const merchant = await Merchant.findOne({
@@ -38,10 +38,11 @@ router.get('/', async (req, res, next) => {
     });
 
     if (!merchant) {
-      return res.status(400).json({ error: 'Price record Not Found' });
+      return res.status(400).json({ error: 'Not Found (merchant)' });
     }
 
     const result = {
+      productId: product.id,
       name: product.name,
       barcode: barcode,
       price: '$ ' + priceRecord.price,
