@@ -6,22 +6,22 @@ router.post('/', async (req, res, next) => {
     const { product_id, merchant_id, price } = req.body;
     if (!product_id)
       return res.status(400).json({
-        error: 'Missing Product Id'
+        error: 'Missing parameter (product_id)'
       });
 
     if (!merchant_id)
       return res.status(400).json({
-        error: 'Missing Merchant Id'
+        error: 'Missing parameter (merchant_id)'
       });
 
     if (!price)
       return res.status(400).json({
-        error: 'Missing price'
+        error: 'Missing parameter (price)'
       });
 
     if (typeof price !== 'number')
       return res.status(400).json({
-        error: 'Wrong data format (price)'
+        error: 'Wrong data type (price)'
       });
 
     const product = await Product.findOne({
@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
 
     if (!product)
       return res.status(404).json({
-        error: 'No such product'
+        error: 'Not found (product)'
       });
 
     const merchant = await Merchant.findOne({
@@ -43,12 +43,12 @@ router.post('/', async (req, res, next) => {
 
     if (!merchant)
       return res.status(404).json({
-        error: 'No such merchant'
+        error: 'Not found (merchant)'
       });
 
     const priceRecord = await Price.create({ product_id, merchant_id, price });
 
-    return res.json({ product, merchant, priceRecord });
+    res.json({ success: 'Price Record is created' });
   } catch (error) {
     next(error);
   }
