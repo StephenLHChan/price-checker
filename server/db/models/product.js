@@ -8,6 +8,10 @@ const Product = db.define(
       type: DataTypes.STRING,
       allowNull: false
     },
+    brand_id: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     barcode: {
       type: DataTypes.STRING,
       unique: true,

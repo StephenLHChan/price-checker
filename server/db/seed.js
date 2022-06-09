@@ -1,12 +1,21 @@
 const db = require('./db');
-const { Product, Price, Merchant } = require('./models');
+const { Product, Price, Merchant, Brand } = require('./models');
 
 async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
 
+  const silk = await Brand.create({
+    name: 'Silk'
+  });
+
+  const tropicana = await Brand.create({
+    name: 'Tropicana'
+  });
+
   const soyMilk = await Product.create({
     name: 'Silk Organic Soy Beverage, Unsweetened Original, Dairy-Free, 1.89L',
+    brand_id: silk.id,
     barcode: '2529300073'
   });
 
@@ -28,8 +37,9 @@ async function seed() {
 
   const orangeJuice = await Product.create({
     name: 'Tropicana Orange Juice - No Pulp, 1.54 L Bottle',
+    brand_id: tropicana.id,
     barcode: '4850020354'
-  })
+  });
 
   const orangeJuicePrice = await Price.create({
     product_id: orangeJuice.id,
